@@ -5,6 +5,7 @@ import {
   currentWeatherDefaultData,
   fiveHoursWeatherDefaultData,
 } from '../constants';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-tab2',
@@ -14,14 +15,18 @@ import {
 })
 export class Tab2Page implements OnInit {
   constructor(private weatherService: WeatherService) {}
-
   icon: string = 'heart-outline';
   isLiked: boolean = false;
   currentWeather: CurrentWeather = currentWeatherDefaultData;
   fiveHoursWeather: FiveHoursWeather = fiveHoursWeatherDefaultData;
   humidity: number = 0;
   windSpeed: number = 0;
+  lat: number = 0;
+  lon: number = 0;
   async ngOnInit() {
+    const location = await this.getCurrentLocation();
+    this.lat = location.lat;
+    this.lon = location.lon;
     this.getCurrentWeather();
     this.get5HoursWeather();
   }
@@ -37,19 +42,27 @@ export class Tab2Page implements OnInit {
   }
 
   getCurrentWeather() {
-    const lat = '41.092429';
-    const lon = '28.8614284';
-    const currentWeather = this.weatherService.getCurrentWeather(lat, lon);
+    const currentWeather = this.weatherService.getCurrentWeather(
+      this.lat,
+      this.lon
+    );
     currentWeather.subscribe((data) => {
       this.currentWeather = data;
     });
   }
   get5HoursWeather() {
     this.weatherService
-      .get5HoursWeather('41.092429', '28.8614284')
+      .get5HoursWeather(this.lat, this.lon)
       .subscribe((data) => {
         this.fiveHoursWeather = data;
-        console.log(data);
       });
+  }
+
+  public async getCurrentLocation() {
+    const coords = await Geolocation.getCurrentPosition();
+    return {
+      lat: coords.coords.latitude,
+      lon: coords.coords.longitude,
+    };
   }
 }

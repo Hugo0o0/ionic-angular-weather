@@ -13,8 +13,8 @@ export class WeatherService {
   constructor(private http: HttpClient) {}
 
   public getCurrentWeather(
-    lat: string,
-    lon: string
+    lat: number,
+    lon: number
   ): Observable<CurrentWeather> {
     return this.http.get<CurrentWeather>(
       `${this.currentWeatherUri}&lat=${lat}&lon=${lon}`
@@ -22,8 +22,8 @@ export class WeatherService {
   }
 
   public get5HoursWeather(
-    lat: string,
-    lon: string
+    lat: number,
+    lon: number
   ): Observable<FiveHoursWeather> {
     const uri = `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=tr&appid=${this.apiKey}&lat=${lat}&lon=${lon}`;
     return this.http.get<FiveHoursWeather>(uri);
