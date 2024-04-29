@@ -1,0 +1,45 @@
+ion-content {
+  --ion-background-color: rgb(18, 13, 111)
+    linear-gradient(
+      281deg,
+      rgba(18, 13, 111, 1) 0%,
+      rgba(9, 88, 121, 1) 0%,
+      rgba(0, 212, 255, 1) 100%
+    );
+}
+ion-item {
+  --background: transparent !important;
+}
+
+p {
+  color: white;
+}
+
+h1,
+h2 {
+  color: white;
+  font-weight: bold;
+}
+
+.like {
+  font-size: 35px;
+  padding-right: 20px;
+  color: white;
+}
+.icon {
+  font-size: 200px;
+  padding-top: 60px;
+}
+.sunny {
+  color: yellow;
+}
+
+.derece {
+  font-size: 50px;
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+.ruzgar-yonu {
+  transform: rotate(28deg);
+}

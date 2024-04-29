@@ -1,0 +1,60 @@
+<ion-content [fullscreen]="true">
+  <!-- En üst kısım -->
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label>
+          <h2>{{currentWeather.name}}</h2>
+          <p>{{currentWeather.sys.country| countryNameByCode}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label class="ion-text-right">
+          <h2>Çarşamba</h2>
+          <p>{{currentWeather.weather[0].description | titlecase}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" class="ion-text-right">
+      <ion-icon class="like" (click)="like()" [name]="icon"></ion-icon>
+    </ion-col>
+
+    <ion-col size="12" class="icon ion-text-center">
+      <ion-icon name="sunny" class="sunny"></ion-icon>
+      <ion-item lines="none">
+        <ion-label class="ion-text-center i-no-margin">
+          <h1 class="derece">{{currentWeather.main.temp | round}}&deg;</h1>
+          <ion-row>
+            <ion-col>
+              <p>
+                {{currentWeather.wind.speed}} km/h
+                <ion-icon name="arrow-back" class="ruzgar-yonu"></ion-icon>
+              </p>
+            </ion-col>
+            <ion-col>
+              <p>
+                {{currentWeather.main.humidity}}%
+                <ion-icon name="thermometer-outline" class="nem"></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-text-center liste">
+    <ion-col *ngFor="let item of fiveHoursWeather.list.slice(10,15)">
+      <p>{{item.dt_txt | date: 'h:mm'}}</p>
+      <img
+        src="https://openweathermap.org/img/w/{{ item.weather[0].icon }}.png"
+      />
+      <p>{{item.main.temp | round}}&deg;</p>
+    </ion-col>
+  </ion-row>
+</ion-content>
